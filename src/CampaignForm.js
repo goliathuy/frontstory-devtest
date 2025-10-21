@@ -33,14 +33,7 @@ function CampaignForm({ onAdd }) {
     onAdd(newCampaign);
     
     // Reset form
-    setFormData({
-      name: '',
-      startDate: '',
-      endDate: '',
-      clicks: '',
-      cost: '',
-      revenue: ''
-    });
+    setFormData({name: '',  startDate: '', endDate: '', clicks: '', cost: '', revenue: ''});
   };
 
   return (
