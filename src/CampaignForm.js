@@ -41,66 +41,88 @@ function CampaignForm({ onAdd }) {
       <h2>Add New Campaign</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            placeholder="Campaign Name"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="name">Campaign Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="Campaign Name"
+              required
+            />
+          </div>
           
-          <input
-            type="date"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleInputChange}
-            placeholder="Start Date"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
           
-          <input
-            type="date"
-            name="endDate"
-            value={formData.endDate}
-            onChange={handleInputChange}
-            placeholder="End Date"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
         
         <div className="form-row">
-          <input
-            type="number"
-            name="clicks"
-            value={formData.clicks}
-            onChange={handleInputChange}
-            placeholder="Clicks"
-            min="0"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="clicks">Clicks</label>
+            <input
+              type="number"
+              id="clicks"
+              name="clicks"
+              value={formData.clicks}
+              onChange={handleInputChange}
+              placeholder="0"
+              min="0"
+              required
+            />
+          </div>
           
-          <input
-            type="number"
-            name="cost"
-            value={formData.cost}
-            onChange={handleInputChange}
-            placeholder="Cost"
-            step="0.01"
-            min="0"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="cost">Cost ($)</label>
+            <input
+              type="number"
+              id="cost"
+              name="cost"
+              value={formData.cost}
+              onChange={handleInputChange}
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
           
-          <input
-            type="number"
-            name="revenue"
-            value={formData.revenue}
-            onChange={handleInputChange}
-            placeholder="Revenue"
-            step="0.01"
-            min="0"
-            required
-          />
+          <div className="form-field">
+            <label htmlFor="revenue">Revenue ($)</label>
+            <input
+              type="number"
+              id="revenue"
+              name="revenue"
+              value={formData.revenue}
+              onChange={handleInputChange}
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
         </div>
         
         <button type="submit" className="submit-button">Add Campaign</button>

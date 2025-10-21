@@ -108,9 +108,22 @@ h1 {
   flex-wrap: wrap;
 }
 
-.form-row input {
+.form-field {
   flex: 1;
   min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.form-field input {
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -118,7 +131,7 @@ h1 {
   transition: border-color 0.3s;
 }
 
-.form-row input:focus {
+.form-field input:focus {
   outline: none;
   border-color: #4CAF50;
 }
