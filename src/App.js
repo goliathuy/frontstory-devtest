@@ -1,17 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import CampaignTable from './CampaignTable';
-
-// At the top of App.js, outside component
-const createCampaign = (name, startDate, endDate, clicks, cost, revenue) => ({
-  id: Date.now().toString(),
-  name,
-  startDate,
-  endDate,
-  clicks: parseInt(clicks),
-  cost: parseFloat(cost),
-  revenue: parseFloat(revenue),
-});
+import CampaignForm from './CampaignForm';
   
 function App() {
   //Adding sample campaigns
@@ -62,6 +52,8 @@ function App() {
   return (
     <div className="App">
       <h1>Campaign Dashboard</h1>
+      
+      <CampaignForm onAdd={addCampaign} />
       
       <CampaignTable 
         campaigns={campaigns}
