@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function CampaignForm({ onAdd }) {
+function CampaignForm({ onAdd, onUpdate, editingCampaign }) {
   const [formData, setFormData] = useState({
     name: '',
     startDate: '',
@@ -10,6 +10,28 @@ function CampaignForm({ onAdd }) {
     revenue: ''
   });
 
+  useEffect(() => {
+    if (editingCampaign) {
+      setFormData({
+        name: editingCampaign.name || '',
+        startDate: editingCampaign.startDate || '',
+        endDate: editingCampaign.endDate || '',
+        clicks: editingCampaign.clicks?.toString() || '',
+        cost: editingCampaign.cost?.toString() || '',
+        revenue: editingCampaign.revenue?.toString() || ''
+      });
+    } else {
+      setFormData({
+        name: '',
+        startDate: '',
+        endDate: '',
+        clicks: '',
+        cost: '',
+        revenue: ''
+      });
+    }
+  }, [editingCampaign]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -17,28 +39,37 @@ function CampaignForm({ onAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Create campaign object
-    const newCampaign = {
-      id: Date.now().toString(),
-      name: formData.name,
-      startDate: formData.startDate,
-      endDate: formData.endDate,
-      clicks: parseInt(formData.clicks) || 0,
-      cost: parseFloat(formData.cost) || 0,
-      revenue: parseFloat(formData.revenue) || 0
-    };
-    
-    // Call parent's add function
-    onAdd(newCampaign);
-    
-    // Reset form
+    if (editingCampaign) {
+      // Update existing campaign
+      const updatedCampaign = {
+        ...editingCampaign,
+        name: formData.name,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        clicks: parseInt(formData.clicks) || 0,
+        cost: parseFloat(formData.cost) || 0,
+        revenue: parseFloat(formData.revenue) || 0
+      };
+      onUpdate(updatedCampaign);
+    } else {
+      // Add new campaign
+      const newCampaign = {
+        id: Date.now().toString(),
+        name: formData.name,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        clicks: parseInt(formData.clicks) || 0,
+        cost: parseFloat(formData.cost) || 0,
+        revenue: parseFloat(formData.revenue) || 0
+      };
+      onAdd(newCampaign);
+    }
     setFormData({name: '',  startDate: '', endDate: '', clicks: '', cost: '', revenue: ''});
   };
 
   return (
     <div className="campaign-form">
-      <h2>Add New Campaign</h2>
+      <h2>{editingCampaign ? 'Edit Campaign' : 'Add New Campaign'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-field">
@@ -53,7 +84,7 @@ function CampaignForm({ onAdd }) {
               required
             />
           </div>
-          
+
           <div className="form-field">
             <label htmlFor="startDate">Start Date</label>
             <input
@@ -65,7 +96,7 @@ function CampaignForm({ onAdd }) {
               required
             />
           </div>
-          
+
           <div className="form-field">
             <label htmlFor="endDate">End Date</label>
             <input
@@ -78,7 +109,7 @@ function CampaignForm({ onAdd }) {
             />
           </div>
         </div>
-        
+
         <div className="form-row">
           <div className="form-field">
             <label htmlFor="clicks">Clicks</label>
@@ -93,7 +124,7 @@ function CampaignForm({ onAdd }) {
               required
             />
           </div>
-          
+
           <div className="form-field">
             <label htmlFor="cost">Cost ($)</label>
             <input
@@ -108,7 +139,7 @@ function CampaignForm({ onAdd }) {
               required
             />
           </div>
-          
+
           <div className="form-field">
             <label htmlFor="revenue">Revenue ($)</label>
             <input
@@ -124,8 +155,11 @@ function CampaignForm({ onAdd }) {
             />
           </div>
         </div>
-        
-        <button type="submit" className="submit-button">Add Campaign</button>
+
+        <button type="submit" className="submit-button">
+          {editingCampaign ? 'Update Campaign' : 'Add Campaign'}
+        </button>
+        {editingCampaign ? <button type="button" className="cancel-button" onClick={() => setEditingCampaign(null)}>Cancel</button> : null}
       </form>
     </div>
   );

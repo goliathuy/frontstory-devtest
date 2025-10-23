@@ -33,9 +33,10 @@ const sampleCampaigns = [
     revenue: 9800.00
   }
 ];
-  
+
 function App() {
   const [campaigns, setCampaigns] = useState([]);
+  const [editingCampaign, setEditingCampaign] = useState(null);
 
   useEffect(() => {
     const savedCampaigns = localStorage.getItem('campaigns');
@@ -56,23 +57,34 @@ function App() {
     setCampaigns((prevCampaigns) => [...prevCampaigns, campaign]);
   };
 
-  const handleEdit = (id) => {
-    alert(`Edit campaign ${id}`);
+  const handleEdit = (campaign) => {
+    setEditingCampaign(campaign);
+  };
+
+  const handleUpdate = (updatedCampaign) => {
+    setCampaigns(campaigns.map(c => c.id === updatedCampaign.id ? updatedCampaign : c));
+    setEditingCampaign(null);
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this campaign?')) {
       setCampaigns(campaigns.filter(campaign => campaign.id !== id));
+      if (editingCampaign && editingCampaign.id === id) {
+        setEditingCampaign(null);
+      }
     }
   };
 
   return (
     <div className="App">
       <h1>Campaign Dashboard</h1>
-      
-      <CampaignForm onAdd={addCampaign} />
-      
-      <CampaignTable 
+      <CampaignForm
+        onAdd={addCampaign}
+        onUpdate={handleUpdate}
+        editingCampaign={editingCampaign}
+        onCancelEditing={() => setEditingCampaign(null)}
+      />
+      <CampaignTable
         campaigns={campaigns}
         onEdit={handleEdit}
         onDelete={handleDelete}

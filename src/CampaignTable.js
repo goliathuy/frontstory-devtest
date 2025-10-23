@@ -30,7 +30,7 @@ function CampaignTable({ campaigns, onEdit, onDelete }) {
               ${calculateProfit(campaign.revenue, campaign.cost).toFixed(2)}
             </td>
             <td>
-              <button onClick={() => onEdit(campaign.id)}>Edit</button>
+              <button onClick={() => onEdit(campaign)}>Edit</button>
               <button onClick={() => onDelete(campaign.id)}>Delete</button>
             </td>
           </tr>
