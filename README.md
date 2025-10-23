@@ -1,6 +1,9 @@
 # frontstory-devtest
 FrontStory | Senior Full Stack Developer Test
 
+## Project Docs
+- UI enhancements plan (floating form, sorting, searching): [docs/ui-visualization.md](./docs/ui-visualization.md)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
