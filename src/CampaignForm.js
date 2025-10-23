@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function CampaignForm({ onAdd, onUpdate, editingCampaign }) {
+function CampaignForm({ onAdd, onUpdate, editingCampaign, onCancelEditing }) {
   const [formData, setFormData] = useState({
     name: '',
     startDate: '',
@@ -156,10 +156,20 @@ function CampaignForm({ onAdd, onUpdate, editingCampaign }) {
           </div>
         </div>
 
-        <button type="submit" className="submit-button">
-          {editingCampaign ? 'Update Campaign' : 'Add Campaign'}
-        </button>
-        {editingCampaign ? <button type="button" className="cancel-button" onClick={() => setEditingCampaign(null)}>Cancel</button> : null}
+        <div className="form-actions">
+          <button type="submit" className="submit-button">
+            {editingCampaign ? 'Update Campaign' : 'Add Campaign'}
+          </button>
+          {editingCampaign ? (
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={onCancelEditing}
+            >
+              Cancel
+            </button>
+          ) : null}
+        </div>
       </form>
     </div>
   );
